@@ -3,8 +3,8 @@ package de.bcxp.challenge.DataSource;
 import com.opencsv.bean.CsvToBeanBuilder;
 import de.bcxp.challenge.DataItem.Listable;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 
 public class CSVFileReader<T extends Listable> implements DataSource<T>{
@@ -17,11 +17,11 @@ public class CSVFileReader<T extends Listable> implements DataSource<T>{
         this.path = path;
     }
 
-    public List<T> getObjectList() throws DataSourceException {
-        List<T> dataList = null;
-        try {
-            dataList = new CsvToBeanBuilder<T>(new FileReader(this.path)).withType(this.type).build().parse();
-        } catch (FileNotFoundException e) {
+    public List<T> getItemList() throws DataSourceException {
+        List<T> dataList;
+        try (FileReader fileReader = new FileReader(this.path)){
+            dataList = new CsvToBeanBuilder<T>(fileReader).withType(this.type).build().parse();
+        } catch (IOException e) {
             throw new DataSourceException(e);
         }
         return dataList;

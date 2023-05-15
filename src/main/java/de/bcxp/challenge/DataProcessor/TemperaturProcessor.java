@@ -14,27 +14,15 @@ public class TemperaturProcessor {
     }
 
     public int getDayWithMinTempSpread() throws DataSourceException {
-        List<DayWeather> days = dataSource.getObjectList();
+        List<DayWeather> days = dataSource.getItemList();
 
-        calculateTempSpread(days);
-
-        return extractMinTempSpreadDay(days).getDayNumber();
-    }
-
-    private void calculateTempSpread(List<DayWeather> days){
-        for(DayWeather day : days){
-            int temperatureSpread = day.getMaximumTemperatureFahrenheit() - day.getMinimumTemperatureFahrenheit();
-            day.setTemperatureSpread(temperatureSpread);
-        }
-    }
-
-    private DayWeather extractMinTempSpreadDay(List<DayWeather> days){
         DayWeather lowestTempSpreadDay = days.get(0);
         for (DayWeather day : days){
             if (day.getTemperatureSpread() < lowestTempSpreadDay.getTemperatureSpread()){
                 lowestTempSpreadDay = day;
             }
         }
-        return lowestTempSpreadDay;
+
+        return lowestTempSpreadDay.getDayNumber();
     }
 }

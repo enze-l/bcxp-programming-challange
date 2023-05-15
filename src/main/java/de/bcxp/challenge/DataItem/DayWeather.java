@@ -13,8 +13,6 @@ public class DayWeather implements Listable {
     @CsvBindByName(column = "MnT")
     private int minimumTemperatureFahrenheit;
 
-    private int temperatureSpread;
-
     public int getDayNumber() {
         return dayNumber;
     }
@@ -28,10 +26,6 @@ public class DayWeather implements Listable {
     }
 
     public int getTemperatureSpread() {
-        return temperatureSpread;
-    }
-
-    public void setTemperatureSpread(int temperatureSpread) {
-        this.temperatureSpread = temperatureSpread;
+        return maximumTemperatureFahrenheit - minimumTemperatureFahrenheit;
     }
 }

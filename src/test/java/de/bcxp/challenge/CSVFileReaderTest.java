@@ -13,7 +13,7 @@ public class CSVFileReaderTest {
         String filePath = "src/main/resources/de/bcxp/challenge/weather.csv";
         CSVFileReader<DayWeather> csvFileReader = new CSVFileReader<>(DayWeather.class, filePath);
 
-        List<DayWeather> days = csvFileReader.getObjectList();
+        List<DayWeather> days = csvFileReader.getItemList();
 
         for(DayWeather day : days){
             System.out.println(day.getDayNumber());
