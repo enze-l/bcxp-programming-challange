@@ -1,13 +1,13 @@
 package de.bcxp.challenge.DataSource;
 
 import com.opencsv.bean.CsvToBeanBuilder;
-import de.bcxp.challenge.DataItem.Listable;
+import de.bcxp.challenge.DataItem.ListItem;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-public class CSVFileReader<T extends Listable> implements DataSource<T>{
+public class CSVFileReader<T extends ListItem> implements DataSource<T>{
 
     private final Class<T> type;
     private final String path;

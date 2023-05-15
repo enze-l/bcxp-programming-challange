@@ -1,23 +1,23 @@
 package de.bcxp.challenge.DataProcessor;
 
-import de.bcxp.challenge.DataItem.DayWeather;
+import de.bcxp.challenge.DataItem.DayWeatherItem;
 import de.bcxp.challenge.DataSource.DataSource;
 import de.bcxp.challenge.DataSource.DataSourceException;
 
 import java.util.List;
 
 public class TemperaturProcessor {
-    private final DataSource<DayWeather> dataSource;
+    private final DataSource<DayWeatherItem> dataSource;
 
-    public TemperaturProcessor(DataSource<DayWeather> dataSource){
+    public TemperaturProcessor(DataSource<DayWeatherItem> dataSource){
         this.dataSource = dataSource;
     }
 
     public int getDayWithMinTempSpread() throws DataSourceException {
-        List<DayWeather> days = dataSource.getItemList();
+        List<DayWeatherItem> days = dataSource.getItemList();
 
-        DayWeather lowestTempSpreadDay = days.get(0);
-        for (DayWeather day : days){
+        DayWeatherItem lowestTempSpreadDay = days.get(0);
+        for (DayWeatherItem day : days){
             if (day.getTemperatureSpread() < lowestTempSpreadDay.getTemperatureSpread()){
                 lowestTempSpreadDay = day;
             }

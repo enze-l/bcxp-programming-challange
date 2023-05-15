@@ -1,4 +1,4 @@
 package de.bcxp.challenge.DataItem;
 
-public interface Listable {
+public interface ListItem {
 }

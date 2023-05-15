@@ -2,7 +2,7 @@ package de.bcxp.challenge.DataItem;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class DayWeather implements Listable {
+public class DayWeatherItem implements ListItem {
 
     @CsvBindByName(column = "Day")
     private int dayNumber;

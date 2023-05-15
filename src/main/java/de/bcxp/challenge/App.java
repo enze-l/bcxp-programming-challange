@@ -1,6 +1,6 @@
 package de.bcxp.challenge;
 
-import de.bcxp.challenge.DataItem.DayWeather;
+import de.bcxp.challenge.DataItem.DayWeatherItem;
 import de.bcxp.challenge.DataProcessor.TemperaturProcessor;
 import de.bcxp.challenge.DataSource.CSVFileReader;
 import de.bcxp.challenge.DataSource.DataSource;
@@ -18,7 +18,7 @@ public final class App {
     public static void main(String... args) throws DataSourceException {
         String filePath = args[0];
 
-        DataSource<DayWeather> dataSource = new CSVFileReader<>(DayWeather.class, filePath);
+        DataSource<DayWeatherItem> dataSource = new CSVFileReader<>(DayWeatherItem.class, filePath);
         TemperaturProcessor temperaturProcessor = new TemperaturProcessor(dataSource);
 
         int dayWithSmallestTempSpread = temperaturProcessor.getDayWithMinTempSpread();
