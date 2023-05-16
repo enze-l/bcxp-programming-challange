@@ -13,6 +13,13 @@ public class DayWeatherItem implements ListItem {
     @CsvBindByName(column = "MnT")
     private int minimumTemperatureFahrenheit;
 
+    public DayWeatherItem() {}
+    public DayWeatherItem(int dayNumber, int minimumTemperatureFahrenheit, int maximumTemperatureFahrenheit) {
+        this.dayNumber = dayNumber;
+        this.maximumTemperatureFahrenheit = maximumTemperatureFahrenheit;
+        this.minimumTemperatureFahrenheit = minimumTemperatureFahrenheit;
+    }
+
     public int getDayNumber() {
         return dayNumber;
     }
