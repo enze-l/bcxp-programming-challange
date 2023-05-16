@@ -18,12 +18,10 @@ public class CSVFileReader<T extends ListItem> implements DataSource<T>{
     }
 
     public List<T> getItemList() throws DataSourceException {
-        List<T> dataList;
         try (FileReader fileReader = new FileReader(this.path)){
-            dataList = new CsvToBeanBuilder<T>(fileReader).withType(this.type).build().parse();
+            return new CsvToBeanBuilder<T>(fileReader).withType(this.type).build().parse();
         } catch (IOException e) {
             throw new DataSourceException(e);
         }
-        return dataList;
     }
 }

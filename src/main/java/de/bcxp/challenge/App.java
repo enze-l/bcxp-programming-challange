@@ -19,9 +19,7 @@ public final class App {
         String filePath = args[0];
 
         DataSource<DayWeatherItem> dataSource = new CSVFileReader<>(DayWeatherItem.class, filePath);
-        TemperaturProcessor temperaturProcessor = new TemperaturProcessor(dataSource);
-
-        int dayWithSmallestTempSpread = temperaturProcessor.getDayWithMinTempSpread();
+        int dayWithSmallestTempSpread = TemperaturProcessor.getDayWithMinTempSpread(dataSource.getItemList());
         System.out.printf("Day with smallest temperature spread: %s%n", dayWithSmallestTempSpread);
     }
 }
