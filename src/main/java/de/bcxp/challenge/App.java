@@ -1,23 +1,27 @@
 package de.bcxp.challenge;
 
-/**
- * The entry class for your solution. This class is only aimed as starting point and not intended as baseline for your software
- * design. Read: create your own classes and packages as appropriate.
- */
+import de.bcxp.challenge.DataItem.DayWeatherItem;
+import de.bcxp.challenge.DataProcessor.TemperaturProcessor;
+import de.bcxp.challenge.DataSource.CSVFileReader;
+import de.bcxp.challenge.DataSource.DataSource;
+import de.bcxp.challenge.DataSource.DataSourceException;
+
+import java.util.List;
+
 public final class App {
+    public static void main(String... args) throws DataSourceException {
+        if (args.length != 1) {
+            throw new IllegalArgumentException("Please provide one argument for the path to the .csv file");
+        }
+        String filePath = args[0];
+        int dayNumber = getDayNumberWithMinTemperatureSpreadFromCSV(filePath);
+        System.out.print(dayNumber);
+    }
 
-    /**
-     * This is the main entry method of your program.
-     * @param args The CLI arguments passed
-     */
-    public static void main(String... args) {
-
-        // Your preparation code …
-
-        String dayWithSmallestTempSpread = "Someday";     // Your day analysis function call …
-        System.out.printf("Day with smallest temperature spread: %s%n", dayWithSmallestTempSpread);
-
-        String countryWithHighestPopulationDensity = "Some country"; // Your population density analysis function call …
-        System.out.printf("Country with highest population density: %s%n", countryWithHighestPopulationDensity);
+    public static int getDayNumberWithMinTemperatureSpreadFromCSV(String filePath) throws DataSourceException {
+        DataSource<DayWeatherItem> dayItemSource = new CSVFileReader<>(DayWeatherItem.class, filePath);
+        List<DayWeatherItem> dayWeatherItemList = dayItemSource.getItemList();
+        DayWeatherItem dayWithSmallestTempSpread = TemperaturProcessor.getDayWithMinTempSpread(dayWeatherItemList);
+        return dayWithSmallestTempSpread.getDayNumber();
     }
 }
