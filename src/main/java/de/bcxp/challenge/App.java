@@ -6,6 +6,8 @@ import de.bcxp.challenge.DataSource.CSVFileReader;
 import de.bcxp.challenge.DataSource.DataSource;
 import de.bcxp.challenge.DataSource.DataSourceException;
 
+import java.util.List;
+
 /**
  * The entry class for the weather Application.
  */
@@ -16,10 +18,18 @@ public final class App {
      * @param args The CLI arguments passed
      */
     public static void main(String... args) throws DataSourceException {
+        if (args.length != 1) {
+            throw new IllegalArgumentException("Please provide one argument for the path to the .csv file");
+        }
         String filePath = args[0];
+        int dayNumber = getDayNumberWithMinTemperatureSpreadFromCSV(filePath);
+        System.out.print(dayNumber);
+    }
 
-        DataSource<DayWeatherItem> dataSource = new CSVFileReader<>(DayWeatherItem.class, filePath);
-        int dayWithSmallestTempSpread = TemperaturProcessor.getDayWithMinTempSpread(dataSource.getItemList());
-        System.out.printf("Day with smallest temperature spread: %s%n", dayWithSmallestTempSpread);
+    public static int getDayNumberWithMinTemperatureSpreadFromCSV(String filePath) throws DataSourceException {
+        DataSource<DayWeatherItem> dayItemSource = new CSVFileReader<>(DayWeatherItem.class, filePath);
+        List<DayWeatherItem> dayWeatherItemList = dayItemSource.getItemList();
+        DayWeatherItem dayWithSmallestTempSpread = TemperaturProcessor.getDayWithMinTempSpread(dayWeatherItemList);
+        return dayWithSmallestTempSpread.getDayNumber();
     }
 }

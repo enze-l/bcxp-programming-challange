@@ -1,25 +1,32 @@
 package de.bcxp.challenge;
 
-import org.junit.jupiter.api.BeforeEach;
+import de.bcxp.challenge.DataSource.DataSourceException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Example JUnit 5 test case.
- */
 class AppTest {
+    @Test
+    void getDayNumberWithMinTemperatureSpreadFromCSVSuccessfully() throws DataSourceException {
+        String testFilePath = "src/test/resources/example_weather.csv";
 
-    private String successLabel = "not successful";
+        int resultingDayNumber = App.getDayNumberWithMinTemperatureSpreadFromCSV(testFilePath);
+        int expectedDayNumber = 1;
 
-    @BeforeEach
-    void setUp() {
-        successLabel = "successful";
+        assertEquals(expectedDayNumber, resultingDayNumber);
     }
 
     @Test
-    void aPointlessTest() {
-        assertEquals("successful", successLabel, "My expectations were not met");
+    void getDayNumberWithMinTemperatureSpreadFromCSVFailsEmptyFile() throws DataSourceException {
+        String testFilePath = "src/test/resources/empty_weather.csv";
+
+        assertThrows(IllegalArgumentException.class, () -> App.getDayNumberWithMinTemperatureSpreadFromCSV(testFilePath));
     }
 
+    @Test
+    void getDayNumberWithMinTemperatureSpreadFromCSVFailsNoPathArg(){
+        String invalidFilePath = "not/a/path/to/a/file.csv";
+
+        assertThrows(DataSourceException.class, () -> App.getDayNumberWithMinTemperatureSpreadFromCSV(invalidFilePath));
+    }
 }
