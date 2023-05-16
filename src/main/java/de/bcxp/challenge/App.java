@@ -8,15 +8,7 @@ import de.bcxp.challenge.DataSource.DataSourceException;
 
 import java.util.List;
 
-/**
- * The entry class for the weather Application.
- */
 public final class App {
-
-    /**
-     * This is the main entry method.
-     * @param args The CLI arguments passed
-     */
     public static void main(String... args) throws DataSourceException {
         if (args.length != 1) {
             throw new IllegalArgumentException("Please provide one argument for the path to the .csv file");
