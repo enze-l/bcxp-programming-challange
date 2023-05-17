@@ -13,19 +13,30 @@ import java.util.function.ToIntFunction;
 public final class App {
     public static void main(String... args) throws DataSourceException {
         if (args.length != 2) {
-            throw new IllegalArgumentException("Please provide one argument for the path to the .csv file");
+            throwExceptionBecauseOfParameterMisuse();
         }
 
-        String calculatorMode = args [0];
+        String calculatorMode = args[0];
         String filePath = args[1];
 
         switch (calculatorMode){
             case "weather":
                 printDayWithMinTemperatureSpread(filePath);
                 break;
-            case "countries":
+            case "country":
                 printCountryWithHighestPopulationDensity(filePath);
+                break;
+            default:
+                throwExceptionBecauseOfParameterMisuse();
         }
+    }
+
+    private static void throwExceptionBecauseOfParameterMisuse(){
+        String errorMessage =
+                "Please provide Arguments for the mode of operation and the path to the .csv as follows: \n" +
+                        " <mode> <file-path> \n" +
+                        "possible modes are 'weather' and 'country'";
+        throw new IllegalArgumentException(errorMessage);
     }
 
     private static void printCountryWithHighestPopulationDensity(String filePath) throws DataSourceException {
@@ -36,8 +47,8 @@ public final class App {
     private static String getCountryWithHighestPopulationDensityFromCSV(String filePath) throws DataSourceException {
         DataSource<CountryDetailItem> countryItemSource = new CSVFileReader<>(CountryDetailItem.class, filePath, ';');
         List<CountryDetailItem> countryItemList = countryItemSource.getItemList();
-        ToIntFunction<CountryDetailItem> sortFunction = CountryDetailItem::getPopulationDensity;
-        CountryDetailItem countryMaxPopulationDensity = ItemListSorter.getMaxItem(countryItemList, sortFunction);
+        ToIntFunction<CountryDetailItem> listSortFunction = CountryDetailItem::getPopulationDensity;
+        CountryDetailItem countryMaxPopulationDensity = ItemListSorter.getMaxItem(countryItemList, listSortFunction);
         return countryMaxPopulationDensity.getCountryName();
     }
 
@@ -49,8 +60,8 @@ public final class App {
     public static int getDayNumberWithMinTemperatureSpreadFromCSV(String filePath) throws DataSourceException {
         DataSource<DayWeatherItem> dayItemSource = new CSVFileReader<>(DayWeatherItem.class, filePath, ',');
         List<DayWeatherItem> dayWeatherItemList = dayItemSource.getItemList();
-        ToIntFunction<DayWeatherItem> sortFunction = DayWeatherItem::getTemperatureSpread;
-        DayWeatherItem dayWithSmallestTempSpread = ItemListSorter.getMinItem(dayWeatherItemList, sortFunction);
+        ToIntFunction<DayWeatherItem> listSortFunction = DayWeatherItem::getTemperatureSpread;
+        DayWeatherItem dayWithSmallestTempSpread = ItemListSorter.getMinItem(dayWeatherItemList, listSortFunction);
         return dayWithSmallestTempSpread.getDayNumber();
     }
 }

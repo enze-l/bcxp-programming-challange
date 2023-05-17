@@ -12,7 +12,7 @@ public class DayWeatherItemTest {
         int maxTemperature = 15;
         DayWeatherItem dayWeatherItem = new DayWeatherItem(dayNumber, minTemperature, maxTemperature);
 
-        int expectedTemperatureSpread = 15 - 10;
+        int expectedTemperatureSpread = 5;
 
         assertEquals(expectedTemperatureSpread, dayWeatherItem.getTemperatureSpread());
     }

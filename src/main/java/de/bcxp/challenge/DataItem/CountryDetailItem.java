@@ -3,13 +3,13 @@ package de.bcxp.challenge.DataItem;
 import com.opencsv.bean.CsvBindByName;
 
 public class CountryDetailItem implements ListItem {
-    @CsvBindByName(column = "Name")
+    @CsvBindByName(column = "Name", required = true)
     private String countryName;
 
-    @CsvBindByName(column = "Population")
+    @CsvBindByName(column = "Population", required = true)
     private String populationNumberString;
 
-    @CsvBindByName(column = "Area (km²)")
+    @CsvBindByName(column = "Area (km²)", required = true)
     private int areaSquareKilometer;
 
     public CountryDetailItem(){}

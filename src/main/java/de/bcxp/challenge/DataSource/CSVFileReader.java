@@ -13,16 +13,16 @@ public class CSVFileReader<T extends ListItem> implements DataSource<T>{
     private final String path;
     private final char seperator;
 
-    public CSVFileReader(Class<T> type, String path, char seperator){
+    public CSVFileReader(Class<T> type, String path, char entrySeperator){
         this.type = type;
         this.path = path;
-        this.seperator = seperator;
+        this.seperator = entrySeperator;
     }
 
     public List<T> getItemList() throws DataSourceException {
         try (FileReader fileReader = new FileReader(this.path)){
             return new CsvToBeanBuilder<T>(fileReader).withType(this.type).withSeparator(seperator).build().parse();
-        } catch (IOException e) {
+        } catch (IOException | RuntimeException e) {
             throw new DataSourceException(e);
         }
     }
