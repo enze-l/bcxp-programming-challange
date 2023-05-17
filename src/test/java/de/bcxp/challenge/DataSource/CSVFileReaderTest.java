@@ -11,7 +11,7 @@ public class CSVFileReaderTest {
     @Test
     void readFileSuccessfully() throws DataSourceException {
         String validFilePath = "src/test/resources/example_weather.csv";
-        CSVFileReader<DayWeatherItem> csvFileReader = new CSVFileReader<>(DayWeatherItem.class, validFilePath);
+        CSVFileReader<DayWeatherItem> csvFileReader = new CSVFileReader<>(DayWeatherItem.class, validFilePath, ',');
 
         List<DayWeatherItem> days = csvFileReader.getItemList();
 
@@ -23,7 +23,7 @@ public class CSVFileReaderTest {
     void readFileThrowsExceptionBecauseFileDoesNotExist() {
         assertThrows(DataSourceException.class, () -> {
             String invalidFilePath = "not/a/path/to/a/file.csv";
-            CSVFileReader<DayWeatherItem> csvFileReader = new CSVFileReader<>(DayWeatherItem.class, invalidFilePath);
+            CSVFileReader<DayWeatherItem> csvFileReader = new CSVFileReader<>(DayWeatherItem.class, invalidFilePath, ',');
 
             csvFileReader.getItemList();
         });

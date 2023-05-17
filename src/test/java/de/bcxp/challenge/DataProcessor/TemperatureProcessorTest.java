@@ -21,7 +21,7 @@ public class TemperatureProcessorTest {
         days.add(dayWithLowestSpread);
         days.add(dayWithHighestSpread);
 
-        DayWeatherItem resultingDay = TemperaturProcessor.getDayWithMinTempSpread(days);
+        DayWeatherItem resultingDay = WeatherProcessor.getDayWithMinTempSpread(days);
 
         assertEquals(dayWithLowestSpread, resultingDay);
     }
@@ -31,7 +31,7 @@ public class TemperatureProcessorTest {
         List<DayWeatherItem> days = new ArrayList<>();
 
         assertThrows(IllegalArgumentException.class, () -> {
-            TemperaturProcessor.getDayWithMinTempSpread(days);
+            WeatherProcessor.getDayWithMinTempSpread(days);
         });
     }
 }

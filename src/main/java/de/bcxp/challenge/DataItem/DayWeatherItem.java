@@ -24,14 +24,6 @@ public class DayWeatherItem implements ListItem {
         return dayNumber;
     }
 
-    public int getMaximumTemperatureFahrenheit() {
-        return maximumTemperatureFahrenheit;
-    }
-
-    public int getMinimumTemperatureFahrenheit() {
-        return minimumTemperatureFahrenheit;
-    }
-
     public int getTemperatureSpread() {
         return maximumTemperatureFahrenheit - minimumTemperatureFahrenheit;
     }
