@@ -1,14 +1,16 @@
 package de.bcxp.challenge.DataProcessor;
 
 import de.bcxp.challenge.DataItem.DayWeatherItem;
+import de.bcxp.challenge.DataItem.ItemListSorter;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class GenericListSorterTest {
+public class ItemListSorterTest {
     @Test
     void getDayWithMinTemperatureSpreadSuccessfully(){
         DayWeatherItem dayWithMediumSpread = new DayWeatherItem(1, 50, 70);
@@ -21,8 +23,17 @@ public class GenericListSorterTest {
         days.add(dayWithLowestSpread);
         days.add(dayWithHighestSpread);
 
-        DayWeatherItem resultingDay = GenericListSorter.getMaxItem(days, DayWeatherItem::getTemperatureSpread);
+        DayWeatherItem resultingDay = ItemListSorter.getMinItem(days, DayWeatherItem::getTemperatureSpread);
 
         assertEquals(dayWithLowestSpread, resultingDay);
+    }
+
+    @Test
+    void getDayWithMinTemperatureSpreadFailsBecauseListIsEmpty(){
+        List<DayWeatherItem> days = new ArrayList<>();
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            ItemListSorter.getMinItem(days, DayWeatherItem::getTemperatureSpread);
+        });
     }
 }

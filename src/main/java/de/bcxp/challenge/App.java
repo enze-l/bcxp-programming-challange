@@ -2,13 +2,13 @@ package de.bcxp.challenge;
 
 import de.bcxp.challenge.DataItem.CountryDetailItem;
 import de.bcxp.challenge.DataItem.DayWeatherItem;
-import de.bcxp.challenge.DataProcessor.CountryProcessor;
-import de.bcxp.challenge.DataProcessor.WeatherProcessor;
+import de.bcxp.challenge.DataItem.ItemListSorter;
 import de.bcxp.challenge.DataSource.CSVFileReader;
 import de.bcxp.challenge.DataSource.DataSource;
 import de.bcxp.challenge.DataSource.DataSourceException;
 
 import java.util.List;
+import java.util.function.ToIntFunction;
 
 public final class App {
     public static void main(String... args) throws DataSourceException {
@@ -36,7 +36,8 @@ public final class App {
     private static String getCountryWithHighestPopulationDensityFromCSV(String filePath) throws DataSourceException {
         DataSource<CountryDetailItem> countryItemSource = new CSVFileReader<>(CountryDetailItem.class, filePath, ';');
         List<CountryDetailItem> countryItemList = countryItemSource.getItemList();
-        CountryDetailItem countryMaxPopulationDensity = CountryProcessor.getMaxPopulationDensityCountry(countryItemList);
+        ToIntFunction<CountryDetailItem> sortFunction = CountryDetailItem::getPopulationDensity;
+        CountryDetailItem countryMaxPopulationDensity = ItemListSorter.getMaxItem(countryItemList, sortFunction);
         return countryMaxPopulationDensity.getCountryName();
     }
 
@@ -48,7 +49,8 @@ public final class App {
     public static int getDayNumberWithMinTemperatureSpreadFromCSV(String filePath) throws DataSourceException {
         DataSource<DayWeatherItem> dayItemSource = new CSVFileReader<>(DayWeatherItem.class, filePath, ',');
         List<DayWeatherItem> dayWeatherItemList = dayItemSource.getItemList();
-        DayWeatherItem dayWithSmallestTempSpread = WeatherProcessor.getDayWithMinTempSpread(dayWeatherItemList);
+        ToIntFunction<DayWeatherItem> sortFunction = DayWeatherItem::getTemperatureSpread;
+        DayWeatherItem dayWithSmallestTempSpread = ItemListSorter.getMinItem(dayWeatherItemList, sortFunction);
         return dayWithSmallestTempSpread.getDayNumber();
     }
 }
