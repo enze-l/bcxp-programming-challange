@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.function.ToIntFunction;
 
 public class ItemListSorter {
-    public static <T> T getMaxItem(List<T> list, ToIntFunction<? super T> sortFunction){
+    public static <T> T getMaxIntItem(List<T> list, ToIntFunction<? super T> sortFunction){
         checkListFilledAndSort(list, sortFunction);
         return list.get(list.size() - 1);
     }
 
-    public static <T> T getMinItem(List<T> list, ToIntFunction<? super T> sortFunction){
+    public static <T> T getMinIntItem(List<T> list, ToIntFunction<? super T> sortFunction){
         checkListFilledAndSort(list, sortFunction);
         return list.get(0);
     }

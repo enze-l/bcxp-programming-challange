@@ -48,7 +48,7 @@ public final class App {
         DataSource<CountryDetailItem> countryItemSource = new CSVFileReader<>(CountryDetailItem.class, filePath, ';');
         List<CountryDetailItem> countryItemList = countryItemSource.getItemList();
         ToIntFunction<CountryDetailItem> listSortFunction = CountryDetailItem::getPopulationDensity;
-        CountryDetailItem countryMaxPopulationDensity = ItemListSorter.getMaxItem(countryItemList, listSortFunction);
+        CountryDetailItem countryMaxPopulationDensity = ItemListSorter.getMaxIntItem(countryItemList, listSortFunction);
         return countryMaxPopulationDensity.getCountryName();
     }
 
@@ -61,7 +61,7 @@ public final class App {
         DataSource<DayWeatherItem> dayItemSource = new CSVFileReader<>(DayWeatherItem.class, filePath, ',');
         List<DayWeatherItem> dayWeatherItemList = dayItemSource.getItemList();
         ToIntFunction<DayWeatherItem> listSortFunction = DayWeatherItem::getTemperatureSpread;
-        DayWeatherItem dayWithSmallestTempSpread = ItemListSorter.getMinItem(dayWeatherItemList, listSortFunction);
+        DayWeatherItem dayWithSmallestTempSpread = ItemListSorter.getMinIntItem(dayWeatherItemList, listSortFunction);
         return dayWithSmallestTempSpread.getDayNumber();
     }
 }

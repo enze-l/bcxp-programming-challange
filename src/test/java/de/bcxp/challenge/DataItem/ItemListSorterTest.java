@@ -21,7 +21,7 @@ public class ItemListSorterTest {
         days.add(dayWithLowestSpread);
         days.add(dayWithHighestSpread);
 
-        DayWeatherItem resultingDay = ItemListSorter.getMinItem(days, DayWeatherItem::getTemperatureSpread);
+        DayWeatherItem resultingDay = ItemListSorter.getMinIntItem(days, DayWeatherItem::getTemperatureSpread);
 
         assertEquals(dayWithLowestSpread, resultingDay);
     }
@@ -38,7 +38,7 @@ public class ItemListSorterTest {
         days.add(dayWithLowestSpread);
         days.add(dayWithHighestSpread);
 
-        DayWeatherItem resultingDay = ItemListSorter.getMinItem(days, DayWeatherItem::getTemperatureSpread);
+        DayWeatherItem resultingDay = ItemListSorter.getMinIntItem(days, DayWeatherItem::getTemperatureSpread);
 
         assertEquals(dayWithLowestSpread, resultingDay);
     }
@@ -48,7 +48,7 @@ public class ItemListSorterTest {
         List<DayWeatherItem> days = new ArrayList<>();
 
         assertThrows(IllegalArgumentException.class, () -> {
-            ItemListSorter.getMinItem(days, DayWeatherItem::getTemperatureSpread);
+            ItemListSorter.getMinIntItem(days, DayWeatherItem::getTemperatureSpread);
         });
     }
 }
