@@ -4,13 +4,13 @@ import com.opencsv.bean.CsvBindByName;
 
 public class DayWeatherItem implements ListItem {
 
-    @CsvBindByName(column = "Day")
+    @CsvBindByName(column = "Day", required = true)
     private int dayNumber;
 
-    @CsvBindByName(column = "MxT")
+    @CsvBindByName(column = "MxT", required = true)
     private int maximumTemperatureFahrenheit;
 
-    @CsvBindByName(column = "MnT")
+    @CsvBindByName(column = "MnT", required = true)
     private int minimumTemperatureFahrenheit;
 
     public DayWeatherItem() {}
@@ -22,14 +22,6 @@ public class DayWeatherItem implements ListItem {
 
     public int getDayNumber() {
         return dayNumber;
-    }
-
-    public int getMaximumTemperatureFahrenheit() {
-        return maximumTemperatureFahrenheit;
-    }
-
-    public int getMinimumTemperatureFahrenheit() {
-        return minimumTemperatureFahrenheit;
     }
 
     public int getTemperatureSpread() {

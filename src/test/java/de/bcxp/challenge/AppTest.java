@@ -20,7 +20,7 @@ class AppTest {
     void getDayNumberWithMinTemperatureSpreadFromCSVFailsEmptyFile() throws DataSourceException {
         String testFilePath = "src/test/resources/empty_weather.csv";
 
-        assertThrows(IllegalArgumentException.class, () -> App.getDayNumberWithMinTemperatureSpreadFromCSV(testFilePath));
+        assertThrows(DataSourceException.class, () -> App.getDayNumberWithMinTemperatureSpreadFromCSV(testFilePath));
     }
 
     @Test
